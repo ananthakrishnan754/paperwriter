@@ -111,6 +111,7 @@ def generate_latex_source(document):
         r"\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em",
         r"    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}",
         r"\begin{document}",
+        r"\sloppy",
         "",
         f"\\title{{{document.title}}}",
         "",
