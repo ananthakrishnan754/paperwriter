@@ -1,0 +1,19 @@
+services:
+  paperwriter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./paperwriter/backend:/app/backend
+      - ./paperwriter/ieee_format:/app/ieee_format
+      - media_data:/app/backend/media
+    env_file:
+      - paperwriter/.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=paperwriter.settings
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  media_data:

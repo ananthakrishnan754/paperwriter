@@ -12,7 +12,7 @@ if doc:
     try:
         data = DocumentSerializer(doc).data
         print("Success:", str(data)[:100])
-    except Exception as e:
+    except Exception:
         import traceback
         traceback.print_exc()
 else:

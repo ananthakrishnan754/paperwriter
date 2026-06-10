@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/latex.js/dist/latex.min.js"></script>
+    <script src="/static/js/auth.js"></script>
     <style>
         .ProseMirror {
             outline: none;
@@ -26,11 +27,70 @@
 </head>
 
 <body>
-    <div id="app">
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-container">
+            <div class="auth-logo">PaperWriter</div>
+            <p class="auth-subtitle">Academic Paper Authoring Platform</p>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form">
+                <h2>Sign In</h2>
+                <div id="auth-error" class="auth-error" style="display:none"></div>
+                <div class="auth-input-group">
+                    <label>Username</label>
+                    <input type="text" id="auth-username" class="auth-input" placeholder="Enter your username" autocomplete="username">
+                </div>
+                <div class="auth-input-group">
+                    <label>Password</label>
+                    <input type="password" id="auth-password" class="auth-input" placeholder="Enter your password" autocomplete="current-password">
+                </div>
+                <button id="auth-login-btn" class="auth-btn" onclick="handleLogin()">Sign In</button>
+                <p class="auth-toggle">
+                    Don't have an account? <a href="#" onclick="showRegister()">Create one</a>
+                </p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="auth-form" style="display:none">
+                <h2>Create Account</h2>
+                <div id="reg-error" class="auth-error" style="display:none"></div>
+                <div class="auth-input-group">
+                    <label>Username</label>
+                    <input type="text" id="reg-username" class="auth-input" placeholder="Choose a username" autocomplete="username">
+                </div>
+                <div class="auth-input-group">
+                    <label>Email</label>
+                    <input type="email" id="reg-email" class="auth-input" placeholder="your@email.com" autocomplete="email">
+                </div>
+                <div class="auth-input-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-password" class="auth-input" placeholder="Create a password" autocomplete="new-password">
+                </div>
+                <div class="auth-input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="reg-password2" class="auth-input" placeholder="Confirm your password" autocomplete="new-password">
+                </div>
+                <button id="auth-register-btn" class="auth-btn" onclick="handleRegister()">Create Account</button>
+                <p class="auth-toggle">
+                    Already have an account? <a href="#" onclick="showLogin()">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Screen (hidden until auth) -->
+    <div id="app" style="display:none">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo">PaperWriter</div>
+                <div class="sidebar-user-info" id="sidebar-user-info">
+                    <span class="sidebar-username" id="sidebar-username"></span>
+                    <button id="logout-btn" class="icon-btn logout-icon" title="Sign Out">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    </button>
+                </div>
                 <button id="sidebar-toggle" class="icon-btn" title="Toggle Sidebar">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
                 </button>

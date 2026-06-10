@@ -1,0 +1,37 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "PaperWriter",
+  "description": "Full-stack academic paper authoring platform with WYSIWYG editing, AI-assisted writing, and IEEE LaTeX/PDF export",
+  "version": "1.0.0",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Vass"
+    }
+  ],
+  "codeRepository": "https://github.com/vass112/paperwriter",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "Python",
+    "version": "3.13"
+  },
+  "runtimePlatform": ["Python 3.12", "Django 6.0", "DRF 3.16"],
+  "operatingSystem": ["Linux", "macOS", "Windows"],
+  "softwareRequirements": [
+    "Django 6.0+",
+    "djangorestframework 3.16+",
+    "google-generativeai 0.8+"
+  ],
+  "developmentStatus": "active",
+  "keywords": [
+    "academic-writing",
+    "latex",
+    "ieee",
+    "django",
+    "ai-writing",
+    "tiptap-editor"
+  ],
+  "funder": false,
+  "issueTracker": "https://github.com/vass112/paperwriter/issues"
+}

@@ -1,0 +1,24 @@
+{
+  "agents": [
+    {
+      "name": "dev-agent",
+      "description": "Writes implementation code per issue specs for PaperWriter",
+      "instructions": "Read the issue body and codebase conventions. PaperWriter is a Django + vanilla JS academic paper editor. Write code, tests (pytest, model-bakery), and docs. Validate with `make validate` before committing. Use ruff for formatting, mypy for type checking."
+    },
+    {
+      "name": "review-agent",
+      "description": "Reviews PRs for quality, security, and conventions",
+      "instructions": "Check for: security issues (no hardcoded secrets, no SQL injection), missing edge cases, deviation from ADRs, insufficient test coverage (<90% for new code), documentation gaps."
+    },
+    {
+      "name": "test-agent",
+      "description": "Generates and improves test coverage for PaperWriter",
+      "instructions": "Read the module and existing tests. Use pytest with model-bakery for factories. Generate tests for: models (str, constraints), serializers (validation, nested), viewsets (CRUD, permissions, edge cases), LaTeX export (HTML conversion), AI commands (error handling)."
+    },
+    {
+      "name": "architect-agent",
+      "description": "Designs system architecture and generates ADRs",
+      "instructions": "Read project requirements. Generate ADRs with: context, decision, consequences. Include Mermaid diagrams. PaperWriter uses: Django REST Framework, TipTap editor, Google Gemini AI, LaTeX/PDF export pipeline, SQLite/PostgreSQL."
+    }
+  ]
+}

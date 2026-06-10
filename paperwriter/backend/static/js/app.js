@@ -26,7 +26,92 @@ let currentRefId = null;
 // Images State
 let imagesData = [];
 
+// --- Auth Helpers ---
+window.handleLogin = async function () {
+    const username = document.getElementById('auth-username').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const errorEl = document.getElementById('auth-error');
+    const btn = document.getElementById('auth-login-btn');
+    if (!username || !password) { errorEl.textContent = 'Please fill in all fields'; errorEl.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = 'Signing in...';
+    try {
+        await Auth.login(username, password);
+        showApp();
+    } catch (e) {
+        errorEl.textContent = e.message; errorEl.style.display = 'block';
+    }
+    btn.disabled = false; btn.textContent = 'Sign In';
+};
+
+window.handleRegister = async function () {
+    const username = document.getElementById('reg-username').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    const password2 = document.getElementById('reg-password2').value;
+    const errorEl = document.getElementById('reg-error');
+    const btn = document.getElementById('auth-register-btn');
+    if (!username || !email || !password || !password2) { errorEl.textContent = 'Please fill in all fields'; errorEl.style.display = 'block'; return; }
+    if (password !== password2) { errorEl.textContent = 'Passwords do not match'; errorEl.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = 'Creating account...';
+    try {
+        await Auth.register(username, email, password, password2);
+        showLogin();
+        document.getElementById('auth-error').textContent = 'Account created! Please sign in.';
+        document.getElementById('auth-error').style.display = 'block';
+        document.getElementById('auth-error').style.color = 'var(--success)';
+    } catch (e) {
+        errorEl.textContent = e.message; errorEl.style.display = 'block';
+    }
+    btn.disabled = false; btn.textContent = 'Create Account';
+};
+
+window.showLogin = function () {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('auth-error').style.display = 'none';
+};
+
+window.showRegister = function () {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'block';
+    document.getElementById('reg-error').style.display = 'none';
+};
+
+function showApp() {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app').style.display = '';
+    const user = Auth.getUser();
+    if (user) {
+        document.getElementById('sidebar-username').textContent = user.username;
+    }
+    document.getElementById('sidebar-user-info').style.display = 'flex';
+    initializeApp();
+}
+
+document.addEventListener('click', function (e) {
+    if (e.target.closest('#logout-btn')) {
+        Auth.logout();
+    }
+});
+
+let appInitialized = false;
+
 document.addEventListener('DOMContentLoaded', async () => {
+    Auth.init();
+    const authed = await Auth.check();
+    if (authed) {
+        showApp();
+    } else {
+        document.getElementById('auth-screen').style.display = 'flex';
+    }
+});
+
+async function initializeApp() {
+    // Prevent re-entry
+    if (appInitialized) {
+        return;
+    }
+    appInitialized = true;
     console.log("PaperWriter Frontend Initialized");
 
     const app = document.getElementById('app');
@@ -179,7 +264,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         console.error("Failed to load documents:", e);
     }
-});
+}
 
 // (switchTab removed)
 

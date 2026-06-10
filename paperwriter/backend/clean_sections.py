@@ -1,13 +1,13 @@
 """Clean garbage content from section editors in the database."""
-import os, sys, django
+import os
+import sys
+import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 django.setup()
 
 from api.models import Section
-from bs4 import BeautifulSoup
-import re
 
 bad_phrases = [
     'Skip to main content', 'Accessibility help', 'Accessibility feedback',

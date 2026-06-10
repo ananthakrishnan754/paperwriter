@@ -1,4 +1,3 @@
-import re
 
 with open(r'c:\Users\DELL\Desktop\paperwriter\paperwriter\backend\templates\index.html', 'r', encoding='utf-8') as f:
     html = f.read()

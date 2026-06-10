@@ -1,0 +1,55 @@
+{
+  "customCommands": [
+    {
+      "name": "validate",
+      "command": "make validate",
+      "description": "Run full validation pipeline (lint, typecheck, test, coverage, docs)"
+    },
+    {
+      "name": "test",
+      "command": "make test",
+      "description": "Run all tests"
+    },
+    {
+      "name": "test-unit",
+      "command": "make test-unit",
+      "description": "Run unit tests"
+    },
+    {
+      "name": "coverage",
+      "command": "make coverage",
+      "description": "Check test coverage"
+    },
+    {
+      "name": "lint",
+      "command": "make lint",
+      "description": "Run linter"
+    },
+    {
+      "name": "migrate",
+      "command": "make migrate",
+      "description": "Run database migrations"
+    },
+    {
+      "name": "seed",
+      "command": "make seed",
+      "description": "Seed database with sample data"
+    }
+  ],
+  "hooks": {
+    "preCommit": ["lint", "test-unit"]
+  },
+  "knowledge": {
+    "projectDir": "docs/knowledge",
+    "memoryDir": ".opencode/memory",
+    "maxMemorySessions": 100,
+    "autoGenerate": true,
+    "autoEvictAfterSessions": 10
+  },
+  "workflows": {
+    "dir": ".opencode/workflows",
+    "maxConcurrentAgents": 8,
+    "maxAgentCallsPerRun": 500,
+    "timeoutPerAgent": 180000
+  }
+}

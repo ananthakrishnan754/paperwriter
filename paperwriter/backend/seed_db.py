@@ -1,16 +1,29 @@
 import os
 import django
-from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paperwriter.settings')
 django.setup()
 
+from django.contrib.auth.models import User
 from api.models import Document, Section
 
+
 def seed():
+    user, created = User.objects.get_or_create(
+        username='demo',
+        defaults={'email': 'demo@paperwriter.dev'},
+    )
+    if created:
+        user.set_password('demo123')
+        user.save()
+        print("Created demo user: demo / demo123")
+
     if not Document.objects.exists():
-        new_doc = Document.objects.create(title="My First Academic Paper")
-        
+        new_doc = Document.objects.create(
+            title="My First Academic Paper",
+            owner=user,
+        )
+
         sections = [
             Section(title="Abstract", section_type="abstract", order=1, document=new_doc),
             Section(title="Introduction", section_type="intro", order=2, document=new_doc),
@@ -25,6 +38,7 @@ def seed():
         print("Database seeded!")
     else:
         print("Database already contains data.")
+
 
 if __name__ == '__main__':
     seed()

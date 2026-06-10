@@ -11,7 +11,7 @@ if os.path.exists(miktex_path):
 import subprocess
 try:
     result = subprocess.run(['pdflatex', '--version'], capture_output=True, text=True, timeout=5)
-    print(f"\npdflatex found!")
+    print("\npdflatex found!")
     print(f"Version: {result.stdout.split(chr(10))[0]}")
 except FileNotFoundError:
     print("\nERROR: pdflatex not found in PATH")

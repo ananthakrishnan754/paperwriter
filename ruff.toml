@@ -1,0 +1,12 @@
+target-version = "py313"
+
+[lint.per-file-ignores]
+# Utility scripts use django.setup() pattern requiring mid-file imports
+"paperwriter/backend/seed_db.py" = ["E402"]
+"paperwriter/backend/clean_sections.py" = ["E402"]
+"paperwriter/backend/fix_appjs.py" = ["E741"]
+"paperwriter/backend/tests/conftest.py" = ["E402"]
+
+# Legacy test scripts that hit a running server
+"paperwriter/backend/test_pdf_export.py" = ["E402"]
+"paperwriter/backend/test_serializer.py" = ["E402"]

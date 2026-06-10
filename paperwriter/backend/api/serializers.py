@@ -12,7 +12,7 @@ class SectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Section
-        fields = ['id', 'title', 'content', 'order', 'section_type', 'parent', 'subsections']
+        fields = ['id', 'document', 'title', 'content', 'order', 'section_type', 'parent', 'subsections']
 
     def get_subsections(self, obj):
         # Recursively serialize subsections
@@ -43,10 +43,11 @@ class DocumentSerializer(serializers.ModelSerializer):
     authors = AuthorSerializer(many=True, read_only=True)
     images = PaperImageSerializer(many=True, read_only=True)
     references = ReferenceSerializer(many=True, read_only=True)
+    owner = serializers.ReadOnlyField(source='owner.id')
 
     class Meta:
         model = Document
-        fields = ['id', 'title', 'index_terms', 'created_at', 'updated_at', 'sections', 'authors', 'images', 'references']
+        fields = ['id', 'owner', 'title', 'index_terms', 'created_at', 'updated_at', 'sections', 'authors', 'images', 'references']
 
     def get_sections(self, obj):
         # Return only top-level sections for the recursive tree
