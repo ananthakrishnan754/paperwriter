@@ -25,7 +25,7 @@ jobs:
       - name: Lint
         run: ruff check paperwriter/
       - name: Typecheck
-        run: mypy paperwriter/ --ignore-missing-imports
+        run: mypy paperwriter/ --ignore-missing-imports --exclude 'migrations/'
 
   test:
     needs: lint

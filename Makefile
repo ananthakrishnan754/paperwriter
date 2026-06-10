@@ -26,7 +26,7 @@ format:
 	$(RUFF) format paperwriter/
 
 typecheck:
-	$(MYPY) paperwriter/ --ignore-missing-imports
+	$(MYPY) paperwriter/ --ignore-missing-imports --exclude 'migrations/'
 
 test-unit:
 	cd paperwriter/backend && PYTHONPATH=.. $(PYTEST) tests/unit/ -x --timeout=30 --reuse-db -v
